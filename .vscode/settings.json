@@ -1,8 +1,10 @@
 {
-	"files.associations": {
-		"*.html": "html",
-		"*.module": "php",
-		"istream": "cpp",
-		"iostream": "cpp"
-	}
+    "files.associations": {
+        "*.html": "html",
+        "*.module": "php",
+        "istream": "cpp",
+        "iostream": "cpp",
+        "iosfwd": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
