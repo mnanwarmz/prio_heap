@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <cmath>
-#define SET_SIZE 5000000
+#define SET_SIZE 100
 #define STR_SIZE 24
 
 using namespace std;
@@ -101,40 +101,10 @@ int extractMax()
     return result;
 }
 
-// Function to change the priority
-// of an element
-void changePriority(int i, int p)
-{
-    int oldp = H[i];
-    H[i] = p;
-
-    if (p > oldp)
-    {
-        shiftUp(i);
-    }
-    else
-    {
-        shiftDown(i);
-    }
-}
-
 // Return the highest value
 int getMax()
 {
     return H[0];
-}
-
-// Function to remove element from priority queue
-void dequeue()
-{
-    H[0] = getMax() + 1;
-
-    // Shift the node to the root
-    // of the heap
-    shiftUp(0);
-
-    // Extract the node
-    extractMax();
 }
 
 void initializePolynomials()
@@ -145,6 +115,7 @@ void initializePolynomials()
     }
 }
 
+// Inserts the setData into the heap
 void convertStringToPolynomial(string setName)
 {
     fstream file;
@@ -172,27 +143,49 @@ void convertStringToPolynomial(string setName)
         file.close();
     }
 }
+
+void display()
+{
+    for (int i = 0; i < SET_SIZE; i++)
+    {
+        cout << H[i] << " " << endl;
+    }
+    cout << endl;
+}
 // Main Function
 int main()
 {
     initializePolynomials();
+    // Insertion
     cout << "Inserting Values in the Priority Queue\n";
     clock_t start = clock();
-    convertStringToPolynomial("SetC.txt");
+    convertStringToPolynomial("SetA.txt");
     clock_t end = clock();
-
     double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
     cout << "Time taken to insert values into queue is : " << fixed << time_taken << setprecision(5);
     cout << " sec " << endl;
     cout << "Extracting the 10\% from the Priority Queue\n";
 
+    // Extracting 10%
     start = clock();
-    for (int i = 0; i < SET_SIZE * 0.1; i++)
-    {
-        dequeue();
-    }
+    for (int i = 0; i < 10; i++)
+        extractMax();
     end = clock();
     time_taken = double(end - start) / double(CLOCKS_PER_SEC);
     cout << "Time taken to extract 10\% from the queue is : " << fixed << time_taken << setprecision(5);
     cout << " sec " << endl;
+
+    // Displaying the heap
+    cout << "Would you like to display the data in the heap? (y/n)";
+    char choice;
+    cin >> choice;
+    if (choice == 'y')
+    {
+        cout << "Displaying the data in the heap\n";
+        display();
+    }
+    else
+    {
+        cout << "Exiting the program\n";
+    }
 }
