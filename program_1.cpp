@@ -4,7 +4,8 @@
 #include <cmath>
 #include <iterator>
 #include <algorithm>
-#define SET_SIZE 5000000
+#define FILENAME "setB.txt"
+#define SET_SIZE 1000000
 #define STR_SIZE 24
 using namespace std;
 // Inserts the setData into the heap
@@ -127,7 +128,7 @@ int main()
 	cout << "Inserting data into the hash table\n";
 	cout << "\n";
 	clock_t start = clock();
-	convertStringToPolynomial("setC.txt");
+	convertStringToPolynomial(FILENAME);
 	clock_t end = clock();
 	double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
 	cout << "Time taken to insert data into the hash table: " << time_taken << " seconds\n";

@@ -2,7 +2,8 @@
 #include <string>
 #include <fstream>
 #include <cmath>
-#define SET_SIZE 10
+#define SET_SIZE 1000000
+#define FILENAME "SetB.txt"
 #define STR_SIZE 24
 
 using namespace std;
@@ -109,12 +110,6 @@ string extractMax()
     return result;
 }
 
-// Return the highest value
-string getMax()
-{
-    return H[0];
-}
-
 void initializePolynomials()
 {
     for (int i = 0; i < STR_SIZE; i++)
@@ -138,7 +133,6 @@ void getAndInsertData(string setName)
             while (getline(file, data))
             {
                 insert(data);
-                size++;
             }
         }
         file.close();
@@ -161,7 +155,7 @@ int main()
     // Insertion
     cout << "Inserting Values in the Priority Queue\n";
     clock_t start = clock();
-    getAndInsertData("SetA.txt");
+    getAndInsertData(FILENAME);
     clock_t end = clock();
     double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
     cout << "Time taken to insert values into queue is : " << fixed << time_taken << setprecision(5);
