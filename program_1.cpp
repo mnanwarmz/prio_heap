@@ -3,9 +3,9 @@
 #include <fstream>
 #include <cmath>
 #include <iterator>
-#include <algorithm>
-#define FILENAME "setB.txt"
-#define SET_SIZE 1000000
+#include <chrono>
+#define FILENAME "setA.txt"
+#define SET_SIZE 100
 #define STR_SIZE 24
 using namespace std;
 // Inserts the setData into the heap

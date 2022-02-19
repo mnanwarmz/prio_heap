@@ -2,27 +2,24 @@
 #include <string>
 #include <fstream>
 #include <cmath>
-#define SET_SIZE 1000000
-#define FILENAME "SetB.txt"
+#include <chrono>
+#define SET_SIZE 5000000
+#define FILENAME "SetC.txt"
 #define STR_SIZE 24
 
 using namespace std;
-string H[SET_SIZE];
+
+struct Node
+{
+    string data;
+    int index;
+};
+Node H[SET_SIZE];
 int size = -1;
 int polynomials[STR_SIZE];
 int parent(int i)
 {
     return (i - 1) / 2;
-}
-
-int getPolynomialValue(string data)
-{
-    int total = 0;
-    for (int i = 0; data[i] != '\0'; i++)
-    {
-        total += data[i] * polynomials[i];
-    }
-    return total;
 }
 
 // get left child of a given node
@@ -43,7 +40,7 @@ int rightChild(int i)
 // to maintain the heap property
 void shiftUp(int i)
 {
-    while (i > 0 && getPolynomialValue(H[parent(i)]) < getPolynomialValue(H[i]))
+    while (i > 0 && H[parent(i)].index < H[i].index)
     {
         // Swap parent and current node
         swap(H[parent(i)], H[i]);
@@ -62,7 +59,7 @@ void shiftDown(int i)
     // Left Child
     int l = leftChild(i);
 
-    if (l <= size && getPolynomialValue(H[l]) > getPolynomialValue(H[maxIndex]))
+    if (l <= size && H[l].index > H[maxIndex].index)
     {
         maxIndex = l;
     }
@@ -70,7 +67,7 @@ void shiftDown(int i)
     // Right Child
     int r = rightChild(i);
 
-    if (r <= size && getPolynomialValue(H[r]) > getPolynomialValue(H[maxIndex]))
+    if (r <= size && H[r].index > H[maxIndex].index)
     {
         maxIndex = r;
     }
@@ -85,10 +82,11 @@ void shiftDown(int i)
 
 // Function to insert a new element
 // in the Binary Heap
-void insert(string p)
+void insert(string p, int index)
 {
     size = size + 1;
-    H[size] = p;
+    Node n = {p, index};
+    H[size] = n;
 
     // Shift Up to maintain heap property
     shiftUp(size);
@@ -96,9 +94,9 @@ void insert(string p)
 
 // Function to extract the element with
 // maximum priority
-string extractMax()
+Node extractMax()
 {
-    string result = H[0];
+    Node result = H[0];
     // Replace the value at the root
     // with the last leaf
     H[0] = H[size];
@@ -132,7 +130,10 @@ void getAndInsertData(string setName)
         {
             while (getline(file, data))
             {
-                insert(data);
+                int total = 0;
+                for (int i = 0; data[i] != '\0'; i++)
+                    total += data[i] * polynomials[i];
+                insert(data, total);
             }
         }
         file.close();
@@ -143,7 +144,7 @@ void display()
 {
     for (int i = 0; i < size; i++)
     {
-        cout << H[i] << " " << endl;
+        cout << H[i].data << " " << endl;
     }
     cout << endl;
 }
@@ -172,16 +173,16 @@ int main()
     cout << " sec " << endl;
 
     // Displaying the heap
-    cout << "Would you like to display the data in the heap? (y/n)";
-    char choice;
-    cin >> choice;
-    if (choice == 'y')
-    {
-        cout << "Displaying the data in the heap\n";
-        display();
-    }
-    else
-    {
-        cout << "Exiting the program\n";
-    }
+    // cout << "Would you like to display the data in the heap? (y/n)";
+    // char choice;
+    // cin >> choice;
+    // if (choice == 'y')
+    // {
+    //     cout << "Displaying the data in the heap\n";
+    //     display();
+    // }
+    // else
+    // {
+    //     cout << "Exiting the program\n";
+    // }
 }
