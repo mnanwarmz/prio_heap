@@ -55,24 +55,18 @@ void shiftUp(int i)
 void shiftDown(int i)
 {
     int maxIndex = i;
-
     // Left Child
     int l = leftChild(i);
-
     if (l <= size && H[l].index > H[maxIndex].index)
     {
         maxIndex = l;
     }
-
     // Right Child
     int r = rightChild(i);
-
     if (r <= size && H[r].index > H[maxIndex].index)
     {
         maxIndex = r;
     }
-
-    // If i not same as maxIndex
     if (i != maxIndex)
     {
         swap(H[i], H[maxIndex]);
@@ -173,16 +167,16 @@ int main()
     cout << " sec " << endl;
 
     // Displaying the heap
-    // cout << "Would you like to display the data in the heap? (y/n)";
-    // char choice;
-    // cin >> choice;
-    // if (choice == 'y')
-    // {
-    //     cout << "Displaying the data in the heap\n";
-    //     display();
-    // }
-    // else
-    // {
-    //     cout << "Exiting the program\n";
-    // }
+    cout << "Would you like to display the data in the heap? (y/n)";
+    char choice;
+    cin >> choice;
+    if (choice == 'y')
+    {
+        cout << "Displaying the data in the heap\n";
+        display();
+    }
+    else
+    {
+        cout << "Exiting the program\n";
+    }
 }

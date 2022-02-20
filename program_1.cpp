@@ -4,18 +4,19 @@
 #include <cmath>
 #include <iterator>
 #include <chrono>
-#define FILENAME "setA.txt"
-#define SET_SIZE 100
+#include <vector>
+#define FILENAME "setC.txt"
+#define SET_SIZE 5000000
 #define STR_SIZE 24
 using namespace std;
 // Inserts the setData into the heap
-int TABLE_SIZE = SET_SIZE * 1.5;
+const int TABLE_SIZE = SET_SIZE * 1.5;
 string *HashTable = new string[TABLE_SIZE];
 int polynomials[STR_SIZE];
 
 int getIndex(string data)
 {
-	int total;
+	int total = 0;
 	for (int i = 0; data[i] != '\0'; i++)
 	{
 		total += data[i] * polynomials[i];
@@ -75,12 +76,12 @@ void search(string data)
 		cout << "Found" << endl;
 	else
 	{
-		while (HashTable[index] != data && index < TABLE_SIZE)
+		while (HashTable[index] != data && index <= TABLE_SIZE)
 		{
 			index++;
 		}
 		if (HashTable[index] == data)
-			cout << "Found" << endl;
+			cout << "Found" << index << endl;
 		else
 			cout << "Not Found" << endl;
 	}
