@@ -1,11 +1,10 @@
-
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <chrono>
+#include <vector>
 
-#define FILENAME "setC.txt"
-#define SET_SIZE 5000000
+#define FILENAME "setA.txt"
 
 using namespace std;
 
@@ -155,46 +154,46 @@ public:
 		root = NULL;
 	}
 };
-
-bool exists(string a[], string data)
-{
-	for (int i = 0; i < 10; i++)
-	{
-		if (a[i] == data)
-			return true;
-	}
-	return false;
-}
-
-// fetch 10 random strings from file
 string *generateRandomStrings()
 {
-	string *randoms = new string[10];
-	ifstream file;
-	file.open(FILENAME);
 	string line;
-	int i = 0;
+	vector<string> lines;
+	string *randoms = new string[10];
+	srand(time(0));
+
+	// input file stream
+	ifstream file(FILENAME);
+
+	// count number of total lines in the file and store the lines in the string vector
+	int total_lines = 0;
 	while (getline(file, line))
 	{
-		if (i == 10)
-			break;
-		randoms[i] = line;
-		i++;
+		total_lines++;
+		lines.push_back(line);
 	}
-	file.close();
+
+	// generate a random number between 0 and count of total lines
+	int random_number = rand() % total_lines;
+	for (int i = 0; i < 10; i++)
+	{
+		randoms[i] = lines[random_number];
+		random_number = rand() % total_lines - 1;
+	}
 	return randoms;
 }
 
 int main()
 {
+	using namespace std::chrono;
 
 	int c;
 	int x = 0;
 	int counter = 0;
 	string str;
 	avl tree;
+	string *findString = new string[10];
 
-	ifstream file(FILENAME);
+	ifstream file("setA.txt");
 
 	if (!file.is_open())
 	{
@@ -214,7 +213,7 @@ int main()
 
 	while (1)
 	{
-		cout << "1.Search 10 Random Vales" << endl;
+		cout << "1.Search Binary Search Tree" << endl;
 		cout << "2.Show Binary Search Tree" << endl;
 		cout << "3.Exit" << endl;
 		cout << "Enter your Choice: ";
@@ -222,17 +221,30 @@ int main()
 		switch (c)
 		{
 		case 1:
-			cout << "Enter value to be searched: ";
-			cin >> str;
-			cout << endl;
+			// cout << "value to be searched:\n3 " << findString[5] << endl;
+			// getline(cin, str);
+			// cout << endl;
+
+			cout << "Fetching 10 randoms string to search" << endl;
+			findString = generateRandomStrings();
+			for (int i = 0; i < 10; i++)
+
+			{
+				cout << "Searching for found data : " << findString[i] << endl;
+				tree.search(tree.root, 1, findString[i]);
+
+				cout << "Search not found data :";
+				tree.search(tree.root, 1, "askdjfalskdjfasldkjf");
+			}
 
 			start = high_resolution_clock::now();
-			tree.search(tree.root, 1, str);
+			// tree.search(tree.root, 1, str);
 			end = high_resolution_clock::now();
 
 			duration = end - start;
 			cout << "Duration: " << duration.count() << "s\n";
 			break;
+
 		case 2:
 			if (tree.root == NULL)
 			{
@@ -246,7 +258,9 @@ int main()
 		case 3:
 			exit(1);
 			file.close();
+
 			break;
+
 		default:
 			cout << "Wrong Choice" << endl;
 		}
