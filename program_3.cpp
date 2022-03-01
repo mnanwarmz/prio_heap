@@ -78,7 +78,9 @@ void shiftDown(int i)
 // in the Binary Heap
 void insert(string p, int index)
 {
+    // Size -1
     size = size + 1;
+    // Size = 0
     Node n = {p, index};
     H[size] = n;
 
@@ -138,7 +140,7 @@ void display()
 {
     for (int i = 0; i < size; i++)
     {
-        cout << H[i].data << " " << endl;
+        cout << i << "\t" << H[i].data << " " << endl;
     }
     cout << endl;
 }

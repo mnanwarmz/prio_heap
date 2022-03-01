@@ -117,7 +117,7 @@ void display()
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
 		if (HashTable[i] != "")
-			cout << HashTable[i] << endl;
+			cout << i << "\t -> " << HashTable[i] << endl;
 	}
 }
 
