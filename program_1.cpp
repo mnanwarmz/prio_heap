@@ -5,7 +5,7 @@
 #include <iterator>
 #include <chrono>
 #include <vector>
-#define FILENAME "setA.txt"
+#define FILENAME "setC.txt"
 #define SET_SIZE 100
 #define STR_SIZE 24
 using namespace std;
@@ -48,13 +48,14 @@ void convertStringToPolynomial(string setName)
 	if (file.is_open())
 	{
 		string data;
-		int value, i, size = 0;
+		int value, i = 0, size = 0;
 		while (!file.eof())
 		{
-			while (getline(file, data))
+			while (getline(file, data) && i < SET_SIZE)
 			{
 				int index = getIndex(data);
 				insert(index, data);
+				i++;
 			}
 		}
 		file.close();
