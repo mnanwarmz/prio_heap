@@ -5,8 +5,8 @@
 #include <iterator>
 #include <chrono>
 #include <vector>
-#define FILENAME "setC.txt"
-#define SET_SIZE 5000000
+#define FILENAME "setA.txt"
+#define SET_SIZE 100
 #define STR_SIZE 24
 using namespace std;
 // Inserts the setData into the heap
@@ -32,7 +32,7 @@ void insert(int index, string data)
 		HashTable[index] = data;
 	else
 	{
-		while (HashTable[index] == "")
+		while (HashTable[index] != "")
 		{
 			index++;
 		}

@@ -154,6 +154,7 @@ public:
 		root = NULL;
 	}
 };
+
 string *generateRandomStrings()
 {
 	string line;
